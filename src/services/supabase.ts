@@ -1,9 +1,9 @@
 // Supabase client configuration for React Native
-import {createClient} from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import * as SecureStore from 'expo-secure-store';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import * as Linking from 'expo-linking';
-import type {Database} from '@/types/database';
+import type { Database } from '@/types/database';
 
 // Get environment variables
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || '';
@@ -133,7 +133,7 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
 // Helper functions for profile operations
 export const profiles = {
   async getProfile(userId: string) {
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
@@ -152,7 +152,7 @@ export const profiles = {
     avatarUrl?: string,
     languageId?: string,
   ) {
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .insert({
         id: userId,
@@ -183,7 +183,7 @@ export const profiles = {
     userId: string,
     updates: Partial<Database['public']['Tables']['profiles']['Update']>,
   ) {
-    const {data, error} = await (supabase as any)
+    const { data, error } = await (supabase as any)
       .from('profiles')
       .update({
         ...updates,
@@ -200,7 +200,7 @@ export const profiles = {
   },
 
   async updateStreak(userId: string) {
-    const {data: profile, error: fetchError} = await (supabase as any)
+    const { data: profile, error: fetchError } = await (supabase as any)
       .from('profiles')
       .select('*')
       .eq('id', userId)
@@ -233,7 +233,7 @@ export const profiles = {
 
       newLongest = Math.max(newStreak, profile.longest_streak);
 
-      const {data, error} = await (supabase as any)
+      const { data, error } = await (supabase as any)
         .from('profiles')
         .update({
           current_streak: newStreak,
@@ -255,7 +255,7 @@ export const profiles = {
   },
 
   async getUserStats(userId: string) {
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from('user_stats')
       .select('*')
       .eq('user_id', userId)
@@ -268,7 +268,7 @@ export const profiles = {
   },
 
   async getUserLanguageStats(userId: string, languageId: string) {
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from('user_language_stats')
       .select('*')
       .eq('user_id', userId)
@@ -282,7 +282,7 @@ export const profiles = {
   },
 
   async resetStreak(userId: string) {
-    const {data, error} = await (supabase as any)
+    const { data, error } = await (supabase as any)
       .from('profiles')
       .update({
         current_streak: 0,
@@ -303,7 +303,7 @@ export const profiles = {
 // Auth helper functions
 export const auth = {
   async signIn(email: string, password: string) {
-    const {data, error} = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -320,7 +320,7 @@ export const auth = {
       Platform.OS === 'web' && typeof window !== 'undefined'
         ? `${window.location.origin}/app/auth/callback`
         : Linking.createURL('/auth/callback');
-    const {data, error} = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -337,7 +337,7 @@ export const auth = {
 
   async signOut() {
     try {
-      const {error} = await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut();
       if (error) {
         // Ignore "Auth session missing" error if it happens during sign out logic
         if (error.message && error.message.includes('Auth session missing')) {
@@ -355,7 +355,7 @@ export const auth = {
   },
 
   async getSession() {
-    const {data, error} = await supabase.auth.getSession();
+    const { data, error } = await supabase.auth.getSession();
     if (error) {
       throw error;
     }
@@ -363,7 +363,7 @@ export const auth = {
   },
 
   async getUser() {
-    const {data, error} = await supabase.auth.getUser();
+    const { data, error } = await supabase.auth.getUser();
     if (error) {
       throw error;
     }
@@ -378,7 +378,7 @@ export const auth = {
 // Add this to your supabase.ts file or create a new utility function
 export const schema = {
   async getAllTables() {
-    const {data, error} = await (supabase as any)
+    const { data, error } = await (supabase as any)
       .from('information_schema.tables')
       .select('table_name, table_schema')
       .eq('table_schema', 'public')
@@ -391,7 +391,7 @@ export const schema = {
   },
 
   async getTableSchema(tableName: string) {
-    const {data, error} = await (supabase as any)
+    const { data, error } = await (supabase as any)
       .from('information_schema.columns')
       .select(
         `
@@ -413,7 +413,7 @@ export const schema = {
   },
 
   async getAllTablesWithSchemas() {
-    const {data: tables, error: tablesError} = await (supabase as any)
+    const { data: tables, error: tablesError } = await (supabase as any)
       .from('information_schema.tables')
       .select('table_name')
       .eq('table_schema', 'public')
@@ -425,7 +425,7 @@ export const schema = {
 
     const tablesWithSchemas = await Promise.all(
       tables.map(async (table: any) => {
-        const {data: columns, error: columnsError} = await (supabase as any)
+        const { data: columns, error: columnsError } = await (supabase as any)
           .from('information_schema.columns')
           .select(
             `

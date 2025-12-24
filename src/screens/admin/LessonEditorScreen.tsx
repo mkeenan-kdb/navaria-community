@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -15,32 +15,32 @@ import {
   RouteProp,
   useFocusEffect,
 } from '@react-navigation/native';
-import {draftService} from '@/services/admin/draftService';
-import {supabase} from '@/services/supabase';
-import {ContentBlockRenderer} from '@/components/content/ContentBlockRenderer';
-import {ThemeProvider, useTheme} from '@/components/shared/ThemeProvider';
-import {MediaUploader} from '@/components/admin/MediaUploader';
-import {ExerciseEditor} from '@/components/admin/ExerciseEditor';
-import {AppBar} from '@/components/shared/AppBar';
-import {Save, Upload} from 'lucide-react-native';
-import {generateUUID} from '@/utils/uuid';
-import type {Tables} from '@/types/database';
-import type {ContentBlock} from '@/types/content';
-import {useThemedStyles} from '@/hooks/useThemedStyles';
-import {spacing, borderRadius, typography, opacity} from '@/theme';
-import {createCommonStyles} from '@/theme/commonStyles';
+import { draftService } from '@/services/admin/draftService';
+import { supabase } from '@/services/supabase';
+import { ContentBlockRenderer } from '@/components/content/ContentBlockRenderer';
+import { ThemeProvider, useTheme } from '@/components/shared/ThemeProvider';
+import { MediaUploader } from '@/components/admin/MediaUploader';
+import { ExerciseEditor } from '@/components/admin/ExerciseEditor';
+import { AppBar } from '@/components/shared/AppBar';
+import { Save, Upload } from 'lucide-react-native';
+import { generateUUID } from '@/utils/uuid';
+import type { Tables } from '@/types/database';
+import type { ContentBlock } from '@/types/content';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { spacing, borderRadius, typography, opacity } from '@/theme';
+import { createCommonStyles } from '@/theme/commonStyles';
 
 type AdminStackParamList = {
-  LessonEditor: {courseId: string; lessonId?: string; mode: 'create' | 'edit'};
+  LessonEditor: { courseId: string; lessonId?: string; mode: 'create' | 'edit' };
 };
 
 export const LessonEditorScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<RouteProp<AdminStackParamList, 'LessonEditor'>>();
-  const {courseId, lessonId, mode} = route.params;
+  const { courseId, lessonId, mode } = route.params;
   const windowWidth = Dimensions.get('window').width;
   const isLargeScreen = windowWidth > 900;
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const common = createCommonStyles(colors);
 
   const [loading, setLoading] = useState(false);
@@ -78,7 +78,7 @@ export const LessonEditorScreen: React.FC = () => {
           // Load other lessons for prerequisites even in create mode
           if (courseId) {
             // Load course language
-            const {data: courseData} = await supabase
+            const { data: courseData } = await supabase
               .from('courses')
               .select('language_id')
               .eq('id', courseId)
@@ -88,7 +88,7 @@ export const LessonEditorScreen: React.FC = () => {
               setDefaultLanguageId((courseData as any).language_id);
             }
 
-            const {data: otherLessons} = await supabase
+            const { data: otherLessons } = await supabase
               .from('lessons')
               .select('*')
               .eq('course_id', courseId)
@@ -107,7 +107,7 @@ export const LessonEditorScreen: React.FC = () => {
         setLoading(true);
         try {
           // Load other lessons for prerequisites
-          const {data: otherLessons} = await supabase
+          const { data: otherLessons } = await supabase
             .from('lessons')
             .select('*')
             .eq('course_id', courseId)
@@ -137,7 +137,7 @@ export const LessonEditorScreen: React.FC = () => {
           }
 
           // Load from DB
-          const {data: lessonData, error: lessonError} = await supabase
+          const { data: lessonData, error: lessonError } = await supabase
             .from('lessons')
             .select('*')
             .eq('id', lessonId)
@@ -149,7 +149,7 @@ export const LessonEditorScreen: React.FC = () => {
           setLesson(lessonData);
 
           // Load prerequisites
-          const {data: prereqData} = await supabase
+          const { data: prereqData } = await supabase
             .from('lesson_prerequisites')
             .select('prerequisite_lesson_id')
             .eq('lesson_id', lessonId);
@@ -161,7 +161,7 @@ export const LessonEditorScreen: React.FC = () => {
           }
 
           // Load course to get language_id
-          const {data: courseData, error: courseError} = await supabase
+          const { data: courseData, error: courseError } = await supabase
             .from('courses')
             .select('language_id')
             .eq('id', courseId)
@@ -174,12 +174,12 @@ export const LessonEditorScreen: React.FC = () => {
           }
 
           // Load blocks
-          const {data: blockData, error: blockError} = await supabase
+          const { data: blockData, error: blockError } = await supabase
             .from('content_blocks')
             .select('*')
             .eq('parent_id', lessonId)
             .eq('parent_type', 'lesson')
-            .order('display_order', {ascending: true});
+            .order('display_order', { ascending: true });
 
           if (blockError) {
             throw blockError;
@@ -209,7 +209,7 @@ export const LessonEditorScreen: React.FC = () => {
                 (block.content as any).exerciseId
               ) {
                 // Fetch exercise details (including type)
-                const {data: exerciseData} = await supabase
+                const { data: exerciseData } = await supabase
                   .from('exercises')
                   .select('type, title')
                   .eq('id', (block.content as any).exerciseId)
@@ -219,30 +219,30 @@ export const LessonEditorScreen: React.FC = () => {
                   (exerciseData as any)?.type || 'standard';
                 (block.content as any).title = (exerciseData as any)?.title;
 
-                const {data: units} = (await supabase
+                const { data: units } = (await supabase
                   .from('exercise_units')
                   .select('*')
                   .eq('exercise_id', (block.content as any).exerciseId)
-                  .order('display_order')) as {data: any[] | null};
+                  .order('display_order')) as { data: any[] | null };
 
                 if (units) {
                   // Fetch sentence audio (using sentence_id as unit_id FK)
-                  const {data: sentenceAudio} = (await supabase
+                  const { data: sentenceAudio } = (await supabase
                     .from('sentence_audio')
                     .select('*')
                     .in(
                       'sentence_id',
                       units.map(u => u.id),
-                    )) as {data: any[] | null};
+                    )) as { data: any[] | null };
 
                   // Fetch word audio
-                  const {data: wordAudio} = (await supabase
+                  const { data: wordAudio } = (await supabase
                     .from('word_audio')
                     .select('*')
                     .in(
                       'sentence_id',
                       units.map(u => u.id),
-                    )) as {data: any[] | null};
+                    )) as { data: any[] | null };
 
                   (block.content as any).units = units.map((u: any) => {
                     const audio = sentenceAudio
@@ -331,7 +331,7 @@ export const LessonEditorScreen: React.FC = () => {
       console.log('📦 Saving draft with ID:', id);
 
       const data = {
-        lesson: {...lesson, id}, // Ensure ID is present
+        lesson: { ...lesson, id }, // Ensure ID is present
         blocks,
         updatedAt: new Date().toISOString(),
       };
@@ -345,7 +345,7 @@ export const LessonEditorScreen: React.FC = () => {
 
       // Update lesson state with the ID if it was newly generated
       if (!lesson.id) {
-        setLesson({...lesson, id});
+        setLesson({ ...lesson, id });
       }
     } catch (error) {
       console.error('❌ Error saving draft:', error);
@@ -378,7 +378,7 @@ export const LessonEditorScreen: React.FC = () => {
         '🆕 Generated new lesson ID for block addition:',
         currentLessonId,
       );
-      setLesson(prev => ({...prev, id: currentLessonId}));
+      setLesson(prev => ({ ...prev, id: currentLessonId }));
     }
 
     const newBlock: ContentBlock = {
@@ -431,7 +431,7 @@ export const LessonEditorScreen: React.FC = () => {
   const updateBlockContent = (blockId: string, content: any) => {
     setBlocks(
       blocks.map(b =>
-        b.id === blockId ? {...b, content: {...b.content, ...content}} : b,
+        b.id === blockId ? { ...b, content: { ...b.content, ...content } } : b,
       ),
     );
   };
@@ -475,21 +475,21 @@ export const LessonEditorScreen: React.FC = () => {
           style={styles.input}
           placeholder="Lesson Title"
           value={lesson.title}
-          onChangeText={t => setLesson({...lesson, title: t})}
+          onChangeText={t => setLesson({ ...lesson, title: t })}
           placeholderTextColor={colors.text.secondary}
         />
         <TextInput
           style={styles.input}
           placeholder="Lesson Title (Target Language)"
           value={lesson.title_target || ''}
-          onChangeText={t => setLesson({...lesson, title_target: t})}
+          onChangeText={t => setLesson({ ...lesson, title_target: t })}
           placeholderTextColor={colors.text.secondary}
         />
         <TextInput
           style={[styles.input, styles.textArea]}
           placeholder="Description"
           value={lesson.description || ''}
-          onChangeText={t => setLesson({...lesson, description: t})}
+          onChangeText={t => setLesson({ ...lesson, description: t })}
           multiline
           placeholderTextColor={colors.text.secondary}
         />
@@ -499,13 +499,13 @@ export const LessonEditorScreen: React.FC = () => {
           style={styles.input}
           value={String(lesson.estimated_minutes || 0)}
           onChangeText={t =>
-            setLesson({...lesson, estimated_minutes: parseInt(t, 10) || 0})
+            setLesson({ ...lesson, estimated_minutes: parseInt(t, 10) || 0 })
           }
           keyboardType="numeric"
           placeholderTextColor={colors.text.secondary}
         />
 
-        <Text style={[styles.label, {marginTop: spacing.sm}]}>
+        <Text style={[styles.label, { marginTop: spacing.sm }]}>
           Prerequisites
         </Text>
         <View style={[common.row, styles.prereqContainerExtra]}>
@@ -534,7 +534,7 @@ export const LessonEditorScreen: React.FC = () => {
             </TouchableOpacity>
           ))}
           {availablePrerequisites.length === 0 && (
-            <Text style={{color: colors.text.secondary, fontStyle: 'italic'}}>
+            <Text style={{ color: colors.text.secondary, fontStyle: 'italic' }}>
               No other lessons available to set as prerequisites.
             </Text>
           )}
@@ -602,7 +602,7 @@ export const LessonEditorScreen: React.FC = () => {
                 </Text>
               </View>
               <TouchableOpacity onPress={() => removeBlock(block.id)}>
-                <Text style={{color: colors.error}}>Remove</Text>
+                <Text style={{ color: colors.error }}>Remove</Text>
               </TouchableOpacity>
             </View>
 
@@ -610,7 +610,7 @@ export const LessonEditorScreen: React.FC = () => {
               <TextInput
                 style={[styles.input, styles.codeArea]}
                 value={(block.content as any).text}
-                onChangeText={t => updateBlockContent(block.id, {text: t})}
+                onChangeText={t => updateBlockContent(block.id, { text: t })}
                 multiline
                 placeholder="Markdown content..."
                 placeholderTextColor={colors.text.secondary}
@@ -620,17 +620,17 @@ export const LessonEditorScreen: React.FC = () => {
             {block.blockType === 'image' && (
               <View>
                 <Text style={styles.label}>Image URL</Text>
-                <View style={{gap: spacing.sm}}>
+                <View style={{ gap: spacing.sm }}>
                   <TextInput
                     style={styles.input}
                     value={(block.content as any).url}
-                    onChangeText={t => updateBlockContent(block.id, {url: t})}
+                    onChangeText={t => updateBlockContent(block.id, { url: t })}
                     placeholderTextColor={colors.text.secondary}
                   />
                   <MediaUploader
                     mediaType="image"
                     onUploadComplete={url =>
-                      updateBlockContent(block.id, {url})
+                      updateBlockContent(block.id, { url })
                     }
                   />
                 </View>
@@ -638,7 +638,7 @@ export const LessonEditorScreen: React.FC = () => {
                 <TextInput
                   style={styles.input}
                   value={(block.content as any).alt}
-                  onChangeText={t => updateBlockContent(block.id, {alt: t})}
+                  onChangeText={t => updateBlockContent(block.id, { alt: t })}
                   placeholderTextColor={colors.text.secondary}
                 />
               </View>
@@ -647,17 +647,17 @@ export const LessonEditorScreen: React.FC = () => {
             {block.blockType === 'video' && (
               <View>
                 <Text style={styles.label}>Video URL</Text>
-                <View style={{gap: spacing.sm}}>
+                <View style={{ gap: spacing.sm }}>
                   <TextInput
                     style={styles.input}
                     value={(block.content as any).url}
-                    onChangeText={t => updateBlockContent(block.id, {url: t})}
+                    onChangeText={t => updateBlockContent(block.id, { url: t })}
                     placeholderTextColor={colors.text.secondary}
                   />
                   <MediaUploader
                     mediaType="video"
                     onUploadComplete={url =>
-                      updateBlockContent(block.id, {url})
+                      updateBlockContent(block.id, { url })
                     }
                   />
                 </View>
@@ -667,17 +667,17 @@ export const LessonEditorScreen: React.FC = () => {
             {block.blockType === 'audio' && (
               <View>
                 <Text style={styles.label}>Audio URL</Text>
-                <View style={{gap: spacing.sm}}>
+                <View style={{ gap: spacing.sm }}>
                   <TextInput
                     style={styles.input}
                     value={(block.content as any).url}
-                    onChangeText={t => updateBlockContent(block.id, {url: t})}
+                    onChangeText={t => updateBlockContent(block.id, { url: t })}
                     placeholderTextColor={colors.text.secondary}
                   />
                   <MediaUploader
                     mediaType="audio"
                     onUploadComplete={url =>
-                      updateBlockContent(block.id, {url})
+                      updateBlockContent(block.id, { url })
                     }
                   />
                 </View>
@@ -685,7 +685,7 @@ export const LessonEditorScreen: React.FC = () => {
                 <TextInput
                   style={styles.input}
                   value={(block.content as any).title}
-                  onChangeText={t => updateBlockContent(block.id, {title: t})}
+                  onChangeText={t => updateBlockContent(block.id, { title: t })}
                   placeholderTextColor={colors.text.secondary}
                 />
                 <Text style={styles.label}>Description</Text>
@@ -693,7 +693,7 @@ export const LessonEditorScreen: React.FC = () => {
                   style={styles.input}
                   value={(block.content as any).description}
                   onChangeText={t =>
-                    updateBlockContent(block.id, {description: t})
+                    updateBlockContent(block.id, { description: t })
                   }
                   placeholderTextColor={colors.text.secondary}
                 />
@@ -720,17 +720,17 @@ export const LessonEditorScreen: React.FC = () => {
         <View style={styles.phoneScreen}>
           <ThemeProvider>
             <ScrollView
-              style={{flex: 1}}
+              style={{ flex: 1 }}
               contentContainerStyle={[
                 styles.previewContent,
-                {backgroundColor: colors.background},
+                { backgroundColor: colors.background },
               ]}
               showsVerticalScrollIndicator={false}>
-              <Text style={[styles.previewTitle, {color: colors.text.primary}]}>
+              <Text style={[styles.previewTitle, { color: colors.text.primary }]}>
                 {lesson.title || 'Untitled Lesson'}
               </Text>
               {blocks.map(block => (
-                <View key={block.id} style={{marginBottom: spacing.md}}>
+                <View key={block.id} style={{ marginBottom: spacing.md }}>
                   <ContentBlockRenderer block={block} containerWidth={335} />
                 </View>
               ))}
@@ -780,7 +780,7 @@ export const LessonEditorScreen: React.FC = () => {
 
     setSaving(true);
     try {
-      const lessonData = {...lesson, id: idToPublish};
+      const lessonData = { ...lesson, id: idToPublish };
 
       // Publish directly to database (no storage draft required)
       console.log('📝 Publishing lesson to database...');
@@ -830,11 +830,11 @@ export const LessonEditorScreen: React.FC = () => {
         showBack
         onBackPress={() => navigation.goBack()}
         rightElement={
-          <View style={{flexDirection: 'row', gap: 8}}>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
             <TouchableOpacity
               style={[
                 styles.draftButton,
-                !isLargeScreen && {paddingHorizontal: 8, paddingVertical: 8},
+                !isLargeScreen && { paddingHorizontal: 8, paddingVertical: 8 },
               ]}
               onPress={handleSaveDraft}
               disabled={saving}>
@@ -849,7 +849,7 @@ export const LessonEditorScreen: React.FC = () => {
             <TouchableOpacity
               style={[
                 styles.publishButton,
-                !isLargeScreen && {paddingHorizontal: 8, paddingVertical: 8},
+                !isLargeScreen && { paddingHorizontal: 8, paddingVertical: 8 },
               ]}
               onPress={handlePublish}
               disabled={saving}>
@@ -910,7 +910,7 @@ const createStyles = (colors: any) => ({
     flexWrap: 'wrap' as const,
     gap: spacing.sm,
   },
-  backText: {color: colors.primary, fontSize: typography.sizes.sm},
+  backText: { color: colors.primary, fontSize: typography.sizes.sm },
   headerTitle: {
     fontSize: typography.sizes.base,
     fontWeight: typography.weights.bold,
@@ -929,19 +929,19 @@ const createStyles = (colors: any) => ({
     color: colors.text.secondary,
     fontWeight: typography.weights.semibold,
   },
-  headerActionsExtra: {gap: spacing.sm},
+  headerActionsExtra: { gap: spacing.sm },
   draftButton: {
     padding: spacing.sm,
     backgroundColor: colors.borderSubtle,
     borderRadius: borderRadius.sm,
   },
-  draftButtonText: {color: colors.text.primary},
+  draftButtonText: { color: colors.text.primary },
   publishButton: {
     padding: spacing.sm,
     backgroundColor: colors.success,
     borderRadius: borderRadius.sm,
   },
-  publishButtonText: {color: colors.white, fontWeight: typography.weights.bold},
+  publishButtonText: { color: colors.white, fontWeight: typography.weights.bold },
 
   splitView: {
     flex: 1,
@@ -998,7 +998,7 @@ const createStyles = (colors: any) => ({
     color: colors.text.primary,
     fontSize: typography.sizes.sm,
   },
-  textArea: {height: 80, textAlignVertical: 'top' as const},
+  textArea: { height: 80, textAlignVertical: 'top' as const },
   codeArea: {
     height: 150,
     fontFamily: Platform.OS === 'web' ? 'monospace' : 'Courier',
@@ -1007,20 +1007,20 @@ const createStyles = (colors: any) => ({
   rowExtra: {
     alignItems: 'center' as const,
   },
-  halfInput: {width: '48%' as const},
+  halfInput: { width: '48%' as const },
   label: {
     fontSize: typography.sizes.xs,
     color: colors.text.secondary,
     marginBottom: 4,
   },
 
-  addButtonsExtra: {gap: spacing.sm},
+  addButtonsExtra: { gap: spacing.sm },
   miniBtn: {
     padding: spacing.xs,
     backgroundColor: colors.surfaceSubtle,
     borderRadius: borderRadius.sm,
   },
-  miniBtnText: {color: colors.text.primary, fontSize: typography.sizes.xs},
+  miniBtnText: { color: colors.text.primary, fontSize: typography.sizes.xs },
 
   blockEditor: {
     borderWidth: 1,
@@ -1083,7 +1083,7 @@ const createStyles = (colors: any) => ({
     justifyContent: 'center' as const,
     alignItems: 'center' as const,
   },
-  activeTab: {borderTopWidth: 2, borderColor: colors.primary},
+  activeTab: { borderTopWidth: 2, borderColor: colors.primary },
 
   prereqContainerExtra: {
     flexWrap: 'wrap' as const,

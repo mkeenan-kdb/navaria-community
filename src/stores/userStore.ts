@@ -1,17 +1,17 @@
 // User authentication and profile store using Zustand
 
-import {create} from 'zustand';
-import {persist, createJSONStorage} from 'zustand/middleware';
-import {createStorage} from '@/services/storage';
-import type {User} from '@supabase/supabase-js';
-import {supabase, auth, profiles} from '@/services/supabase';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { createStorage } from '@/services/storage';
+import type { User } from '@supabase/supabase-js';
+import { supabase, auth, profiles } from '@/services/supabase';
 import {
   mapToUserProfile,
   mapToUserStats,
   mapToUserLanguageStats,
 } from '@/types/user';
-import type {UserProfile, UserStats, UserLanguageStats} from '@/types/user';
-import {resetUserXP, resetUserProgress} from '@/services/progress';
+import type { UserProfile, UserStats, UserLanguageStats } from '@/types/user';
+import { resetUserXP, resetUserProgress } from '@/services/progress';
 
 interface UserState {
   // State
@@ -60,13 +60,13 @@ export const useUserStore = create<UserState>()(
       // Initialize auth state
       initialize: async () => {
         try {
-          set({isLoading: true, error: null});
+          set({ isLoading: true, error: null });
 
           // Get current session
           const session = await auth.getSession();
 
           if (session?.user) {
-            set({user: session.user});
+            set({ user: session.user });
             await get().loadProfile(session.user.id);
           }
 
@@ -75,7 +75,7 @@ export const useUserStore = create<UserState>()(
             console.log('[Auth] Event:', event);
 
             if (currentSession?.user) {
-              set({user: currentSession.user});
+              set({ user: currentSession.user });
               // Only load profile if we have a user, and don't await it to prevent blocking (though listener is void)
               get().loadProfile(currentSession.user.id);
             } else {
@@ -88,7 +88,7 @@ export const useUserStore = create<UserState>()(
             }
           });
 
-          set({isInitialized: true, isLoading: false});
+          set({ isInitialized: true, isLoading: false });
         } catch (error) {
           console.error('Initialize error:', error);
           set({
@@ -103,16 +103,16 @@ export const useUserStore = create<UserState>()(
       // Sign in
       signIn: async (email: string, password: string) => {
         try {
-          set({isLoading: true, error: null});
+          set({ isLoading: true, error: null });
 
-          const {user} = await auth.signIn(email, password);
+          const { user } = await auth.signIn(email, password);
 
           if (user) {
-            set({user});
+            set({ user });
             await get().loadProfile(user.id);
           }
 
-          set({isLoading: false});
+          set({ isLoading: false });
         } catch (error) {
           console.error('Sign in error:', error);
           set({
@@ -126,7 +126,7 @@ export const useUserStore = create<UserState>()(
       // Sign up
       signUp: async (email: string, password: string) => {
         try {
-          set({error: null});
+          set({ error: null });
 
           await auth.signUp(email, password);
 
@@ -151,13 +151,13 @@ export const useUserStore = create<UserState>()(
         avatarUrl?: string,
         languageId?: string,
       ) => {
-        const {user} = get();
+        const { user } = get();
         if (!user) {
           throw new Error('No user logged in');
         }
 
         try {
-          set({isLoading: true, error: null});
+          set({ isLoading: true, error: null });
 
           await profiles.createProfile(
             user.id,
@@ -168,7 +168,7 @@ export const useUserStore = create<UserState>()(
           );
           await get().loadProfile(user.id);
 
-          set({isLoading: false});
+          set({ isLoading: false });
         } catch (error) {
           console.error('Create profile error:', error);
           set({
@@ -185,7 +185,7 @@ export const useUserStore = create<UserState>()(
       // Sign out
       signOut: async () => {
         try {
-          set({isLoading: true, error: null});
+          set({ isLoading: true, error: null });
 
           await auth.signOut();
 
@@ -256,11 +256,11 @@ export const useUserStore = create<UserState>()(
             }
           }
 
-          set({profile, stats});
+          set({ profile, stats });
 
           // Sync language from profile
           if (profile.learningLanguageId) {
-            set({currentLanguageId: profile.learningLanguageId});
+            set({ currentLanguageId: profile.learningLanguageId });
 
             // Load language stats
             try {
@@ -269,13 +269,13 @@ export const useUserStore = create<UserState>()(
                 profile.learningLanguageId,
               );
               if (dbLangStats) {
-                set({languageStats: mapToUserLanguageStats(dbLangStats)});
+                set({ languageStats: mapToUserLanguageStats(dbLangStats) });
               } else {
-                set({languageStats: null});
+                set({ languageStats: null });
               }
             } catch (langStatsError) {
               console.warn('Failed to load language stats:', langStatsError);
-              set({languageStats: null});
+              set({ languageStats: null });
             }
           }
 
@@ -283,7 +283,7 @@ export const useUserStore = create<UserState>()(
           if (profile.themeMode) {
             try {
               // Use require to avoid circular dependency during initialization
-              const {useThemeStore} = require('./themeStore');
+              const { useThemeStore } = require('./themeStore');
               useThemeStore.getState().setThemeMode(profile.themeMode);
             } catch (err) {
               console.warn('Failed to sync theme from profile:', err);
@@ -293,7 +293,7 @@ export const useUserStore = create<UserState>()(
           // Load achievements from database
           try {
             // Use require to avoid circular dependency during initialization
-            const {useAchievementStore} = require('./achievementStore');
+            const { useAchievementStore } = require('./achievementStore');
             await useAchievementStore.getState().initialize(userId);
             console.log('[USER_STORE] Achievements loaded successfully');
           } catch (err) {
@@ -303,7 +303,7 @@ export const useUserStore = create<UserState>()(
           // If profile not found (PGRST116), it's expected for new users. Don't log error.
           if (error?.code === 'PGRST116') {
             // Just ensure profile is null and allow the app to redirect to onboarding
-            set({profile: null});
+            set({ profile: null });
             return;
           }
 
@@ -328,7 +328,7 @@ export const useUserStore = create<UserState>()(
 
             try {
               // Try to refresh the session
-              const {data: refreshData, error: refreshError} =
+              const { data: refreshData, error: refreshError } =
                 await supabase.auth.refreshSession();
 
               if (refreshError) {
@@ -346,7 +346,7 @@ export const useUserStore = create<UserState>()(
               }
 
               // If refresh didn't work, check if session truly exists
-              const {data: sessionData} = await supabase.auth.getSession();
+              const { data: sessionData } = await supabase.auth.getSession();
               if (sessionData?.session) {
                 console.log(
                   '[loadProfile] Session still valid after error, continuing...',
@@ -381,13 +381,13 @@ export const useUserStore = create<UserState>()(
 
       // Update profile
       updateProfile: async (updates: Partial<UserProfile>) => {
-        const {user, profile} = get();
+        const { user, profile } = get();
         if (!user || !profile) {
           throw new Error('No user logged in');
         }
 
         try {
-          set({error: null});
+          set({ error: null });
 
           // Map camelCase to snake_case for database
           const dbUpdates: any = {};
@@ -419,7 +419,7 @@ export const useUserStore = create<UserState>()(
           const updatedDb = await profiles.updateProfile(user.id, dbUpdates);
           const updatedProfile = mapToUserProfile(updatedDb);
 
-          set({profile: updatedProfile});
+          set({ profile: updatedProfile });
         } catch (error) {
           console.error('Update profile error:', error);
           set({
@@ -434,19 +434,19 @@ export const useUserStore = create<UserState>()(
 
       // Set language
       setLanguage: async (languageId: string) => {
-        const {user} = get();
+        const { user } = get();
         if (!user) {
           // If no user, just update local state
-          set({currentLanguageId: languageId});
+          set({ currentLanguageId: languageId });
           return;
         }
 
         try {
-          set({currentLanguageId: languageId});
-          await get().updateProfile({learningLanguageId: languageId});
+          set({ currentLanguageId: languageId });
+          await get().updateProfile({ learningLanguageId: languageId });
 
           // Load language stats for new language
-          const {user: currentUser} = get();
+          const { user: currentUser } = get();
           if (currentUser) {
             try {
               const dbLangStats = await profiles.getUserLanguageStats(
@@ -454,13 +454,13 @@ export const useUserStore = create<UserState>()(
                 languageId,
               );
               if (dbLangStats) {
-                set({languageStats: mapToUserLanguageStats(dbLangStats)});
+                set({ languageStats: mapToUserLanguageStats(dbLangStats) });
               } else {
-                set({languageStats: null});
+                set({ languageStats: null });
               }
             } catch (langStatsError) {
               console.warn('Failed to load language stats:', langStatsError);
-              set({languageStats: null});
+              set({ languageStats: null });
             }
           }
         } catch (error) {
@@ -471,7 +471,7 @@ export const useUserStore = create<UserState>()(
 
       // Update streak
       updateStreak: async () => {
-        const {user} = get();
+        const { user } = get();
         if (!user) {
           return;
         }
@@ -479,27 +479,27 @@ export const useUserStore = create<UserState>()(
         try {
           const updated = await profiles.updateStreak(user.id);
           const profile = mapToUserProfile(updated);
-          set({profile});
+          set({ profile });
         } catch (error) {
           console.error('Update streak error:', error);
         }
       },
 
       // Clear error
-      clearError: () => set({error: null}),
+      clearError: () => set({ error: null }),
 
       // Reset XP
       resetXP: async () => {
-        const {user} = get();
+        const { user } = get();
         if (!user) {
           return;
         }
 
         try {
-          set({isLoading: true});
+          set({ isLoading: true });
           await resetUserXP(user.id);
           await get().loadProfile(user.id);
-          set({isLoading: false});
+          set({ isLoading: false });
         } catch (error) {
           console.error('Reset XP error:', error);
           set({
@@ -512,21 +512,21 @@ export const useUserStore = create<UserState>()(
 
       // Reset Progress
       resetProgress: async () => {
-        const {user} = get();
+        const { user } = get();
         if (!user) {
           return;
         }
 
         try {
-          set({isLoading: true});
+          set({ isLoading: true });
           await resetUserProgress(user.id);
 
           // Also reset achievements
-          const {useAchievementStore} = await import('./achievementStore');
+          const { useAchievementStore } = await import('./achievementStore');
           useAchievementStore.getState().reset();
 
           await get().loadProfile(user.id);
-          set({isLoading: false});
+          set({ isLoading: false });
         } catch (error) {
           console.error('Reset progress error:', error);
           set({
