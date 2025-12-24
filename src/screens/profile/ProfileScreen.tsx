@@ -307,6 +307,7 @@ export const ProfileScreen: React.FC = () => {
     <View style={common.container}>
       <AppBar title="Profile" showMenu showHome onMenuPress={openMenu} />
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={common.flex1}
         contentContainerStyle={styles.contentExtra}>
         {/* User Info */}

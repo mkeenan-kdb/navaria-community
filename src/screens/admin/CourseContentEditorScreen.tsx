@@ -324,7 +324,9 @@ export const CourseContentEditorScreen: React.FC = () => {
   };
 
   const renderEditor = () => (
-    <ScrollView style={styles.editorScroll}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={styles.editorScroll}>
       <View style={styles.formSection}>
         <View style={[common.rowBetween, styles.sectionHeaderRowExtra]}>
           <Text style={styles.sectionHeader}>Content Blocks</Text>
@@ -682,7 +684,9 @@ export const CourseContentEditorScreen: React.FC = () => {
         <View style={[common.flex1, common.centered, styles.modalOverlayExtra]}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Markdown Formatting Guide</Text>
-            <ScrollView style={{maxHeight: 400}}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              style={{maxHeight: 400}}>
               <Text style={styles.helpText}>
                 <Text style={{fontWeight: typography.weights.bold}}>Bold:</Text>{' '}
                 **text**

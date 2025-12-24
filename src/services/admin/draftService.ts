@@ -259,7 +259,6 @@ export const draftService = {
         const authCheckPromise = supabase.auth.getSession();
         const timeoutPromise = new Promise((_, reject) => {
           setTimeout(() => {
-            console.error('❌ Auth check timed out after 10000ms');
             reject(new Error('Authentication check timed out'));
           }, 10000);
         });
@@ -420,7 +419,6 @@ export const draftService = {
         const authCheckPromise = supabase.auth.getSession();
         const timeoutPromise = new Promise((_, reject) => {
           setTimeout(() => {
-            console.error('❌ Auth check timed out after 10000ms');
             reject(new Error('Authentication check timed out'));
           }, 10000);
         });

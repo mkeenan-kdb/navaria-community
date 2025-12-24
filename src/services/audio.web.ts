@@ -31,8 +31,9 @@ const POOL_SIZE = 3;
 // getAudioContext removed
 export const getOrInitAudioContext = async (): Promise<AudioContext> => {
   if (!audioContext) {
-    audioContext = new (window.AudioContext ||
-      (window as any).webkitAudioContext)();
+    audioContext = new (
+      window.AudioContext || (window as any).webkitAudioContext
+    )();
   }
   // Resume if suspended (browser autoplay policy)
   if (audioContext.state === 'suspended') {

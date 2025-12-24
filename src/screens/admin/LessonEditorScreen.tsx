@@ -466,7 +466,9 @@ export const LessonEditorScreen: React.FC = () => {
   };
 
   const renderEditor = () => (
-    <ScrollView style={styles.editorScroll}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={styles.editorScroll}>
       <View style={styles.formSection}>
         <Text style={styles.sectionHeader}>Metadata</Text>
         <TextInput
@@ -474,12 +476,14 @@ export const LessonEditorScreen: React.FC = () => {
           placeholder="Lesson Title"
           value={lesson.title}
           onChangeText={t => setLesson({...lesson, title: t})}
+          placeholderTextColor={colors.text.secondary}
         />
         <TextInput
           style={styles.input}
           placeholder="Lesson Title (Target Language)"
           value={lesson.title_target || ''}
           onChangeText={t => setLesson({...lesson, title_target: t})}
+          placeholderTextColor={colors.text.secondary}
         />
         <TextInput
           style={[styles.input, styles.textArea]}
@@ -487,6 +491,7 @@ export const LessonEditorScreen: React.FC = () => {
           value={lesson.description || ''}
           onChangeText={t => setLesson({...lesson, description: t})}
           multiline
+          placeholderTextColor={colors.text.secondary}
         />
 
         <Text style={styles.label}>Estimated Minutes</Text>
@@ -497,6 +502,7 @@ export const LessonEditorScreen: React.FC = () => {
             setLesson({...lesson, estimated_minutes: parseInt(t, 10) || 0})
           }
           keyboardType="numeric"
+          placeholderTextColor={colors.text.secondary}
         />
 
         <Text style={[styles.label, {marginTop: spacing.sm}]}>
@@ -607,6 +613,7 @@ export const LessonEditorScreen: React.FC = () => {
                 onChangeText={t => updateBlockContent(block.id, {text: t})}
                 multiline
                 placeholder="Markdown content..."
+                placeholderTextColor={colors.text.secondary}
               />
             )}
 
@@ -618,6 +625,7 @@ export const LessonEditorScreen: React.FC = () => {
                     style={styles.input}
                     value={(block.content as any).url}
                     onChangeText={t => updateBlockContent(block.id, {url: t})}
+                    placeholderTextColor={colors.text.secondary}
                   />
                   <MediaUploader
                     mediaType="image"
@@ -631,6 +639,7 @@ export const LessonEditorScreen: React.FC = () => {
                   style={styles.input}
                   value={(block.content as any).alt}
                   onChangeText={t => updateBlockContent(block.id, {alt: t})}
+                  placeholderTextColor={colors.text.secondary}
                 />
               </View>
             )}
@@ -643,6 +652,7 @@ export const LessonEditorScreen: React.FC = () => {
                     style={styles.input}
                     value={(block.content as any).url}
                     onChangeText={t => updateBlockContent(block.id, {url: t})}
+                    placeholderTextColor={colors.text.secondary}
                   />
                   <MediaUploader
                     mediaType="video"
@@ -662,6 +672,7 @@ export const LessonEditorScreen: React.FC = () => {
                     style={styles.input}
                     value={(block.content as any).url}
                     onChangeText={t => updateBlockContent(block.id, {url: t})}
+                    placeholderTextColor={colors.text.secondary}
                   />
                   <MediaUploader
                     mediaType="audio"
@@ -675,6 +686,7 @@ export const LessonEditorScreen: React.FC = () => {
                   style={styles.input}
                   value={(block.content as any).title}
                   onChangeText={t => updateBlockContent(block.id, {title: t})}
+                  placeholderTextColor={colors.text.secondary}
                 />
                 <Text style={styles.label}>Description</Text>
                 <TextInput
@@ -683,6 +695,7 @@ export const LessonEditorScreen: React.FC = () => {
                   onChangeText={t =>
                     updateBlockContent(block.id, {description: t})
                   }
+                  placeholderTextColor={colors.text.secondary}
                 />
               </View>
             )}

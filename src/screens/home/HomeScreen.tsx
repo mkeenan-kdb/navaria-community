@@ -105,7 +105,10 @@ export const HomeScreen: React.FC = () => {
         useCelticFont
         backgroundColor={colors.appBar}
       />
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scroll}
+        contentContainerStyle={styles.content}>
         {/* Hero Section */}
         <View style={styles.hero}>
           <Image

@@ -347,7 +347,7 @@ export const DashboardScreen: React.FC = () => {
         </ScrollView>
       </View>
 
-      <ScrollView style={styles.content}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
         <Text style={styles.sectionTitle}>
           Courses ({filteredCourses.length})
         </Text>

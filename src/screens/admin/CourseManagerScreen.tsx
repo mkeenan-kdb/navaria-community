@@ -28,7 +28,6 @@ import {useTheme} from '@/components/shared';
 import {useThemedStyles} from '@/hooks/useThemedStyles';
 import {spacing, borderRadius, typography} from '@/theme';
 import {createCommonStyles} from '@/theme/commonStyles';
-
 import {allIcons, getIconComponent} from '@/utils/iconMap';
 
 type AdminStackParamList = {
@@ -339,7 +338,9 @@ export const CourseManagerScreen: React.FC = () => {
       />
 
       {activeTab === 'edit' ? (
-        <ScrollView style={styles.scrollContent}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.scrollContent}>
           <View style={styles.formSection}>
             <Text style={styles.sectionHeader}>Course Details</Text>
 
@@ -349,6 +350,7 @@ export const CourseManagerScreen: React.FC = () => {
               value={course.title}
               onChangeText={text => setCourse({...course, title: text})}
               placeholder="Course Title (e.g., Learn Navajo)"
+              placeholderTextColor={colors.text.secondary}
             />
 
             <Text style={styles.label}>Title (Target Language)</Text>
@@ -357,6 +359,7 @@ export const CourseManagerScreen: React.FC = () => {
               value={course.title_target || ''}
               onChangeText={text => setCourse({...course, title_target: text})}
               placeholder="Course title in target language"
+              placeholderTextColor={colors.text.secondary}
             />
 
             <Text style={styles.label}>Description</Text>
@@ -365,6 +368,7 @@ export const CourseManagerScreen: React.FC = () => {
               value={course.description || ''}
               onChangeText={text => setCourse({...course, description: text})}
               placeholder="Brief description of the course"
+              placeholderTextColor={colors.text.secondary}
               multiline
             />
 
@@ -418,6 +422,7 @@ export const CourseManagerScreen: React.FC = () => {
                     value={iconSearchQuery}
                     onChangeText={setIconSearchQuery}
                     autoFocus
+                    placeholderTextColor={colors.text.secondary}
                   />
                   {iconSearchQuery.length > 0 && (
                     <TouchableOpacity onPress={() => setIconSearchQuery('')}>
@@ -443,6 +448,7 @@ export const CourseManagerScreen: React.FC = () => {
               value={course.icon_url || ''}
               onChangeText={text => setCourse({...course, icon_url: text})}
               placeholder="Custom icon URL (overrides icon name)"
+              placeholderTextColor={colors.text.secondary}
             />
 
             <View style={styles.colorSection}>
@@ -489,6 +495,7 @@ export const CourseManagerScreen: React.FC = () => {
                     })
                   }
                   keyboardType="numeric"
+                  placeholderTextColor={colors.text.secondary}
                 />
               </View>
             </View>

@@ -133,7 +133,9 @@ export const SeanchloTyperScreen: React.FC = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={common.flex1}>
-        <ScrollView contentContainerStyle={styles.contentExtra}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.contentExtra}>
           <Card style={styles.inputCardExtra}>
             <Text style={styles.labelExtra}>Enter Text</Text>
             <TextInput

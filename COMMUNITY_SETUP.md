@@ -372,7 +372,7 @@ Now that your Navaria instance is running:
 ### "No tables found" in Supabase
 
 - Go back to [Database Configuration](#database-configuration)
-- Re-run all SQL migrations in order
+- Re-run the complete `database/init_schema.sql` script
 - Check for error messages in the SQL Editor
 
 ### App won't start / Metro bundler errors

@@ -189,6 +189,7 @@ export const CourseContentScreen: React.FC = () => {
       <AppBar title={course.title} showBack />
 
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

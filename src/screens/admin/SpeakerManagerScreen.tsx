@@ -190,7 +190,7 @@ export const SpeakerManagerScreen: React.FC = () => {
         onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <Text style={styles.modalTitle}>
                 {editingSpeaker.id ? 'Edit Speaker' : 'New Speaker'}
               </Text>
@@ -206,6 +206,7 @@ export const SpeakerManagerScreen: React.FC = () => {
                     setEditingSpeaker({...editingSpeaker, name: t})
                   }
                   autoCapitalize="none"
+                  placeholderTextColor={colors.text.secondary}
                 />
               </View>
 
@@ -217,6 +218,7 @@ export const SpeakerManagerScreen: React.FC = () => {
                   onChangeText={t =>
                     setEditingSpeaker({...editingSpeaker, display_name: t})
                   }
+                  placeholderTextColor={colors.text.secondary}
                 />
               </View>
 
@@ -228,6 +230,7 @@ export const SpeakerManagerScreen: React.FC = () => {
                   onChangeText={t =>
                     setEditingSpeaker({...editingSpeaker, dialect: t})
                   }
+                  placeholderTextColor={colors.text.secondary}
                 />
               </View>
 
@@ -244,6 +247,7 @@ export const SpeakerManagerScreen: React.FC = () => {
                       })
                     }
                     placeholder="Image URL"
+                    placeholderTextColor={colors.text.secondary}
                   />
                   <MediaUploader
                     mediaType="image"

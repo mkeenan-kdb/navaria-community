@@ -86,11 +86,8 @@ export const useXPAnimation = (
       const currentXpLayout = await measureXpLayout();
       const effectiveXpLayout = currentXpLayout || xpLayout;
 
-      console.log('[XP_ANIMATION] Target layout:', effectiveXpLayout);
-
       if (!effectiveXpLayout || effectiveXpLayout.width === 0) {
         // Fallback if layout not ready or invalid
-        console.log('[XP_ANIMATION] Layout not ready, updating XP directly');
         const totalNewXP = messages.reduce((acc, msg) => acc + msg.xp, 0);
         setDisplayedXP(prev => prev + totalNewXP);
         return;
@@ -103,16 +100,6 @@ export const useXPAnimation = (
       const window = Dimensions.get('window');
       const startX = lastClick?.x ?? window.width / 2;
       const startY = lastClick?.y ?? window.height / 2;
-
-      console.log('[XP_ANIMATION] Start position:', {
-        startX,
-        startY,
-        fromClick: !!lastClick,
-      });
-      console.log('[XP_ANIMATION] End position (target center):', {
-        x: effectiveXpLayout.x + effectiveXpLayout.width / 2,
-        y: effectiveXpLayout.y + effectiveXpLayout.height / 2,
-      });
 
       const newFloatingXPs = messages.map((msg, index) => ({
         id: Date.now() + index, // Ensure unique ID even in tight loop

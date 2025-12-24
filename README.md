@@ -21,7 +21,7 @@ Thousands of languages around the world are at risk of disappearing. Navaria pro
 
 You can access the live community version here: [Navaria Community App](https://navaria-webdeploy.navaria.pages.dev/app/)
 
-This instance is running for the community. I've added a basic sample course to show the various content types that can be used to create rich courses. Other than that, it's waiting for **you** to create content. If you would like to create content for the community version, you can contact me and I'll help you get started with admin access.
+This instance is running for the community. It's currently empty, waiting for **you** to create content. If you would like to create content for the community version, you can contact me and I'll help you get started with admin access.
 
 ---
 
@@ -140,6 +140,18 @@ npm start (or `npm run web`)
 ```
 
 **For complete setup instructions, see [COMMUNITY_SETUP.md](./COMMUNITY_SETUP.md)**
+
+### 🧪 Generating Test Data
+
+If you want to quickly populate your local instance with a fully structured example course (Irish), you can run the seed script:
+
+```bash
+# Verify you have admin access first (see COMMUNITY_SETUP.md)
+# Then run the seed script:
+node scripts/seed-irish-course.js
+```
+
+This will create a complete "Beginner Irish" course with lessons, exercises, and audio placeholders.
 
 ---
 

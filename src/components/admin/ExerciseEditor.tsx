@@ -442,6 +442,7 @@ export const ExerciseEditor: React.FC<Props> = ({content, onChange}) => {
                         updatePair(realIndex, pairIndex, 'source', t)
                       }
                       placeholder="Source Text"
+                      placeholderTextColor={themeColors.text.secondary}
                     />
                   </View>
                   <View style={common.spacerSm} />
@@ -454,6 +455,7 @@ export const ExerciseEditor: React.FC<Props> = ({content, onChange}) => {
                         updatePair(realIndex, pairIndex, 'target', t)
                       }
                       placeholder="Target Text"
+                      placeholderTextColor={themeColors.text.secondary}
                     />
                   </View>
                 </View>
@@ -581,6 +583,7 @@ export const ExerciseEditor: React.FC<Props> = ({content, onChange}) => {
               value={unit.content.source}
               onChangeText={t => updateCloze(realIndex, 'source', t)}
               placeholder="e.g. The cat sat on the mat"
+              placeholderTextColor={themeColors.text.secondary}
             />
 
             <Text style={styles.label}>Irish/Target (With brackets)</Text>
@@ -589,6 +592,7 @@ export const ExerciseEditor: React.FC<Props> = ({content, onChange}) => {
               value={unit.content.target}
               onChangeText={t => updateCloze(realIndex, 'target', t)}
               placeholder="e.g. [cat] ar an [mata]"
+              placeholderTextColor={themeColors.text.secondary}
             />
 
             <Text style={styles.label}>Distractors</Text>
@@ -601,6 +605,7 @@ export const ExerciseEditor: React.FC<Props> = ({content, onChange}) => {
               }
               onChangeText={t => updateCloze(realIndex, '_rawDistractors', t)}
               placeholder="e.g. madra, bó"
+              placeholderTextColor={themeColors.text.secondary}
             />
 
             <Text style={styles.label}>Sentence Audio</Text>

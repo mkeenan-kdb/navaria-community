@@ -19,7 +19,7 @@ interface UserState {
   profile: UserProfile | null;
   stats: UserStats | null;
   languageStats: UserLanguageStats | null;
-  currentLanguageId: string; // Added for multilingual support
+  currentLanguageId: string;
   isLoading: boolean;
   isInitialized: boolean;
   error: string | null;
@@ -37,7 +37,7 @@ interface UserState {
   signOut: () => Promise<void>;
   loadProfile: (userId: string) => Promise<void>;
   updateProfile: (updates: Partial<UserProfile>) => Promise<void>;
-  setLanguage: (languageId: string) => Promise<void>; // Added for multilingual support
+  setLanguage: (languageId: string) => Promise<void>;
   updateStreak: () => Promise<void>;
   clearError: () => void;
   resetXP: () => Promise<void>;
@@ -227,6 +227,33 @@ export const useUserStore = create<UserState>()(
           } catch (statsError) {
             console.warn('Failed to load user stats:', statsError);
             // Don't fail the whole profile load for stats
+          }
+
+          // Reset streak if it's broken.
+          if (profile.currentStreak > 0 && profile.lastActivityDate) {
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(Date.now() - 86400000)
+              .toISOString()
+              .split('T')[0];
+            const lastActivity = profile.lastActivityDate.split('T')[0];
+
+            // If not today and not yesterday, it's broken
+            if (lastActivity !== today && lastActivity !== yesterday) {
+              console.log(
+                `[loadProfile] Broken streak detected (Last: ${lastActivity}, Today: ${today}). Resetting to 0.`,
+              );
+
+              // 1. Reset local state immediately for UI
+              profile.currentStreak = 0;
+
+              // 2. Reset in DB (fire and forget)
+              profiles.resetStreak(userId).catch(err => {
+                console.warn(
+                  '[loadProfile] Failed to persist streak reset:',
+                  err,
+                );
+              });
+            }
           }
 
           set({profile, stats});

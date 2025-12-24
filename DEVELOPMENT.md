@@ -97,12 +97,10 @@ src/
 ├── navigation/          # Navigation configuration
 └── utils/               # Utility functions
 
+database-schemas/             # Exported schema JSON files (you can generate these using the provided dev-script `scripts/export-schema.js`)
 database/
 ├── init_schema.sql           # Complete database initialisation
-├── migrations/               # Database migrations (source files)
 └── scripts/                  # Database utility scripts
-
-database-schemas/             # Exported schema JSON files
 ```
 
 ---
@@ -421,16 +419,17 @@ See [COMMUNITY_SETUP.md](./COMMUNITY_SETUP.md#creating-your-first-admin-user) fo
 
 ## Scripts
 
-| Script                  | Description                          |
-| ----------------------- | ------------------------------------ |
-| `npm run export-schema` | Export database schema to JSON files |
-| `npm start`             | Start Expo development server        |
-| `npm run ios`           | Run on iOS simulator                 |
-| `npm run android`       | Run on Android emulator              |
-| `npm run web`           | Run in web browser                   |
-| `npm test`              | Run test suite                       |
-| `npm run lint`          | Run ESLint                           |
-| `npm run format`        | Format code with Prettier            |
+| Script                              | Description                                    |
+| ----------------------------------- | ---------------------------------------------- |
+| `npm run export-schema`             | Export database schema to JSON files           |
+| `node scripts/seed-irish-course.js` | Seed the database with an example Irish course |
+| `npm start`                         | Start Expo development server                  |
+| `npm run ios`                       | Run on iOS simulator                           |
+| `npm run android`                   | Run on Android emulator                        |
+| `npm run web`                       | Run in web browser                             |
+| `npm test`                          | Run test suite                                 |
+| `npm run lint`                      | Run ESLint                                     |
+| `npm run format`                    | Format code with Prettier                      |
 
 ---
 

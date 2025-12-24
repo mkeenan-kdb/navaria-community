@@ -211,7 +211,8 @@ export const profiles = {
     }
 
     const today = new Date().toISOString().split('T')[0];
-    const lastActivity = profile.last_activity_date;
+    const rawLastActivity = profile.last_activity_date;
+    const lastActivity = rawLastActivity ? rawLastActivity.split('T')[0] : null;
 
     let newStreak = profile.current_streak;
     let newLongest = profile.longest_streak;
@@ -273,6 +274,24 @@ export const profiles = {
       .eq('user_id', userId)
       .eq('language_id', languageId)
       .maybeSingle();
+
+    if (error) {
+      throw error;
+    }
+    return data;
+  },
+
+  async resetStreak(userId: string) {
+    const {data, error} = await (supabase as any)
+      .from('profiles')
+      .update({
+        current_streak: 0,
+        // Don't update last_activity_date or updated_at to strictly preserve
+        // the fact that no activity happened today
+      })
+      .eq('id', userId)
+      .select()
+      .single();
 
     if (error) {
       throw error;

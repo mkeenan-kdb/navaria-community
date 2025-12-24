@@ -243,7 +243,9 @@ export const SignupScreen: React.FC = () => {
       <KeyboardAvoidingView
         style={styles.keyboardView}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.container}>
           <View style={styles.header}>
             <View style={styles.logoContainer}>
               <Image
@@ -283,6 +285,7 @@ export const SignupScreen: React.FC = () => {
       style={styles.keyboardView}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled">
         {/* Logo and Brand */}

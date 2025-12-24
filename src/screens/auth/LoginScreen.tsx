@@ -146,6 +146,7 @@ export const LoginScreen: React.FC = () => {
       style={styles.keyboardView}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled">
         {/* Logo and Brand */}
