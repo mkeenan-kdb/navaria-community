@@ -1,0 +1,68 @@
+/* Web font loading for Navara */
+/* These fonts are loaded via expo-font plugin on native, but need CSS @font-face on web */
+
+@font-face {
+  font-family: 'MeathFLF';
+  src:
+    url('./fonts/MeathFLF.woff2') format('woff2'),
+    url('./fonts/MeathFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ardchlo GC';
+  src: url('./fonts/ardchlo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bunchlo GC';
+  src: url('./fonts/bungc.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gearchlo GC';
+  src: url('./fonts/gear.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Glanchlo GC';
+  src: url('./fonts/glangc.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mearchlo GC';
+  src: url('./fonts/mearchlo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mionchlo GC';
+  src: url('./fonts/mionchlo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sraidchlo GC';
+  src: url('./fonts/SraidchloGC-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

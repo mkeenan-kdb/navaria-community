@@ -1,0 +1,4 @@
+# SPA routing - serve index.html for all /app routes
+/app/*  /app/index.html  200
+# Redirect root to app
+/       /app/            301
