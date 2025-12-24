@@ -1,6 +1,6 @@
-import {useRef, useState, useCallback, useEffect} from 'react';
-import {Animated, Dimensions} from 'react-native';
-import {useTheme} from '@/components/shared';
+import { useRef, useState, useCallback, useEffect } from 'react';
+import { Animated, Dimensions } from 'react-native';
+import { useTheme } from '@/components/shared';
 
 interface FloatingXP {
   id: number;
@@ -10,7 +10,7 @@ interface FloatingXP {
   color: string;
   delay: number;
   xp: number;
-  targetLayout: {x: number; y: number; width: number; height: number};
+  targetLayout: { x: number; y: number; width: number; height: number };
 }
 
 interface XPMessage {
@@ -28,7 +28,7 @@ export const useXPAnimation = (
   xpRef?: React.RefObject<any>,
   exerciseType: 'standard' | 'matching_pairs' | 'cloze' = 'standard',
 ) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   // Animation values
   const xpOpacity = useRef(new Animated.Value(1)).current;
@@ -64,7 +64,7 @@ export const useXPAnimation = (
       xpRef.current.measureInWindow(
         (x: number, y: number, width: number, height: number) => {
           if (width > 0 && height > 0) {
-            resolve({x, y, width, height});
+            resolve({ x, y, width, height });
           } else {
             resolve(null);
           }
@@ -94,7 +94,7 @@ export const useXPAnimation = (
       }
 
       // Use lastClickPosition from exerciseStore - each exercise sets this when XP is earned
-      const {useExerciseStore} = require('@/stores/exerciseStore');
+      const { useExerciseStore } = require('@/stores/exerciseStore');
       const lastClick = useExerciseStore.getState().lastClickPosition;
 
       const window = Dimensions.get('window');

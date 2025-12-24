@@ -1,8 +1,70 @@
 # Navaria
 
-**A free, open-source language learning platform for preserving endangered and minority languages.**
+**A free, open-source platform for creating and hosting your own language-learning content — with full control and privacy over your content, students, and data.** Feel free to use this for yourself, your business, your classes, tribe, community, or any other purpose.
 
-Navaria is designed to be a free, open-source language learning platform for preserving endangered and minority languages. It empowers educators, schools, institutions, and communities to create and distribute their own language learning courses. Built with modern technology and designed for ease of deployment, Navaria makes language preservation accessible to everyone.
+Navaria is **software you deploy yourself**.
+
+By following the setup guides in this repository, you can create **your own private or public instance** of Navaria — fully under your control — and use it to teach **your own language**, with **your own lessons**, for **your own students or community**.
+
+Although I have a special interest in preserving endangered languages, Navaria is not limited to this. I have created this project to be a general language learning platform, and included features that allow the app to be customised and extended in various ways. Dive in!
+
+### What you get when you deploy Navaria
+
+- 🏗️ **Your own instance** (not shared with anyone else)
+- 🔐 **Full control over content, users, and courses**
+- 🧑‍🎓 **Private access for your students** (or public, if you choose)
+- 🎨 Optional custom branding and domain
+- 💾 Your own database and storage
+- 🚫 No platform lock-in, no ads, no fees
+
+Navaria is **free and open source (MIT License)**.
+
+You may:
+- Use it privately or publicly  
+- Modify it for your needs  
+- Deploy it for schools, communities, or commercial projects  
+- Share it with your students under your own rules  
+
+👉 **If you can follow step-by-step instructions, you can run Navaria. No prior platform experience required.**
+
+---
+
+## Visual Showcase
+
+<table>
+  <tr>
+    <td width="33%">
+      <img src="docs/screenshots/learner/Language-Selection.png" alt="Language Selection" />
+      <p align="center"><em>Choose from multiple languages</em></p>
+    </td>
+    <td width="33%">
+      <img src="docs/screenshots/learner/Course-Selection-Screen .png" alt="Course Selection" />
+      <p align="center"><em>Browse interactive courses</em></p>
+    </td>
+    <td width="33%">
+      <img src="docs/screenshots/learner/Exercise-types.png" alt="Interactive Exercises" />
+      <p align="center"><em>Engage with interactive exercises</em></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%">
+      <img src="docs/screenshots/admin/Course-creation-screen.png" alt="Admin Course Creation" />
+      <p align="center"><em>No-code course creation</em></p>
+    </td>
+    <td width="33%">
+      <img src="docs/screenshots/admin/Rich-content-blocks-nocode.png" alt="Rich Content Blocks" />
+      <p align="center"><em>Build lessons with rich content</em></p>
+    </td>
+    <td width="33%">
+      <img src="docs/screenshots/progress/Live-xp-animation.png" alt="XP Tracking" />
+      <p align="center"><em>Track progress with XP & achievements</em></p>
+    </td>
+  </tr>
+</table>
+
+---
+
+> **Note:** A public *community instance* also exists for shared experimentation and collaboration — but it is entirely optional. Most educators and organisations deploy their **own private instance**. The community instance is **empty** and waiting for **you** to create content. If you would like to create content for the community version, you can contact me and I'll add you to the admins list, then you can create content with no-code for the wider community to use.
 
 ---
 
@@ -54,6 +116,8 @@ Navaria is designed for anyone committed to language preservation and education:
 
 ### 🎓 **For Learners**
 
+<img src="docs/screenshots/learner/Typing-exercise.png" alt="Interactive Typing Exercise" width="300" align="right" />
+
 - **Interactive Exercises**: Typing practice with custom keyboards (e.g., Irish fada support), fill-in-the-blank, and matching pairs
 - **Audio Pronunciation**: Native speaker recordings for words and sentences
 - **Multi-Speaker Dialogues**: Learn conversational skills with distinct speaker avatars
@@ -61,7 +125,47 @@ Navaria is designed for anyone committed to language preservation and education:
 - **Progress Tracking**: Monitor your learning journey with detailed statistics
 - **Cross-Platform**: Available on web, iOS, and Android
 
+<br clear="right"/>
+
+#### Custom Language Tools
+
+<img src="docs/screenshots/learner/language-specific-tools-seanchlo-typer.png" alt="Language-Specific Custom Keyboards" width="350" />
+
+Support for special characters and diacritics with custom keyboard layouts (e.g., Irish fada keys, special character buttons).
+
+#### Engaging Exercise Types
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/learner/Matching-Pairs-Exercise.png" alt="Matching Pairs" />
+      <p align="center"><em>Matching pairs exercises</em></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/learner/Select-Speakers.png" alt="Multi-Speaker Dialogues" />
+      <p align="center"><em>Multi-speaker conversational practice</em></p>
+    </td>
+  </tr>
+</table>
+
+#### Progress & Gamification
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/progress/Exercise-feedback-stats.png" alt="Exercise Feedback" />
+      <p align="center"><em>Instant feedback and statistics</em></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/progress/Unlock-acheivements.png" alt="Achievements" />
+      <p align="center"><em>Unlock custom achievements</em></p>
+    </td>
+  </tr>
+</table>
+
 ### 🛠️ **For Educators**
+
+<img src="docs/screenshots/admin/Course-preview.png" alt="Course Preview" width="300" align="right" />
 
 - **Admin Content Management System**: Create and organise courses, lessons, and exercises through an intuitive interface
 - **Course Builder**: Structure your curriculum with lessons, exercises, and learning paths
@@ -69,6 +173,48 @@ Navaria is designed for anyone committed to language preservation and education:
 - **Speaker Management**: Define multiple speakers for conversational exercises
 - **Multi-Language Support**: Manage courses for multiple languages from one platform
 - **Flexible Deployment**: Host on your own infrastructure or use free cloud services
+
+<br clear="right"/>
+
+#### No-Code Content Creation
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/admin/Add-lessons-to-course.png" alt="Add Lessons to Course" />
+      <p align="center"><em>Easily add and organize lessons</em></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/admin/add-various-exercise-types.png" alt="Exercise Types" />
+      <p align="center"><em>Create various exercise types</em></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/admin/Manage-speakers.png" alt="Speaker Management" />
+      <p align="center"><em>Manage speakers for dialogues</em></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/admin/in-app-audio-recording.png" alt="Audio Recording" />
+      <p align="center"><em>Record audio directly in-app</em></p>
+    </td>
+  </tr>
+</table>
+
+#### Advanced Features
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/admin/set-per-course-prerequisites.png" alt="Prerequisites" />
+      <p align="center"><em>Set lesson prerequisites</em></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/admin/word-or-sentence-level-speaker-audio.png" alt="Audio Levels" />
+      <p align="center"><em>Word or sentence-level audio</em></p>
+    </td>
+  </tr>
+</table>
 
 ---
 

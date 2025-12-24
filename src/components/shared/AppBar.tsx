@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StatusBar} from 'react-native';
-import {ArrowLeft, Menu, Home, Settings, X} from 'lucide-react-native';
-import {useTheme} from './ThemeProvider';
-import {AppBarSettingsMenu} from './AppBarSettingsMenu';
-import {borderRadius, spacing, typography} from '@/theme';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useNavigation, DrawerActions} from '@react-navigation/native';
-import {useThemedStyles} from '@/hooks/useThemedStyles';
-import {createCommonStyles} from '@/theme/commonStyles';
+import React, { useState } from 'react'; // Rebuild force
+import { View, Text, TouchableOpacity } from 'react-native';
+import { ArrowLeft, Menu, Home, Settings, X } from 'lucide-react-native';
+import { useTheme } from './ThemeProvider';
+import { AppBarSettingsMenu } from './AppBarSettingsMenu';
+import { borderRadius, spacing, typography } from '@/theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation, DrawerActions } from '@react-navigation/native';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { createCommonStyles } from '@/theme/commonStyles';
 
 interface AppBarProps {
   title?: string;
@@ -48,7 +48,7 @@ export const AppBar: React.FC<AppBarProps> = ({
   titleStyle,
   style,
 }) => {
-  const {colors, isDark} = useTheme();
+  const { colors, isDark } = useTheme();
   const common = createCommonStyles(colors);
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
@@ -68,7 +68,7 @@ export const AppBar: React.FC<AppBarProps> = ({
         zIndex: 1000,
         elevation: 4,
         shadowColor: '#000',
-        shadowOffset: {width: 0, height: 2},
+        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 2,
         borderRadius: borderRadius['3xl'],
@@ -105,10 +105,8 @@ export const AppBar: React.FC<AppBarProps> = ({
 
   return (
     <>
-      {/* Set status bar style based on theme */}
-      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
       {/* Safe area spacer - fills the status bar area */}
-      <View style={{height: insets.top, backgroundColor: 'transparent'}} />
+      <View style={{ height: insets.top, backgroundColor: 'transparent' }} />
       <View
         style={[
           styles.containerExtra,
@@ -153,7 +151,7 @@ export const AppBar: React.FC<AppBarProps> = ({
               style={[
                 styles.title,
                 useCelticFont && styles.celticTitle,
-                {color: contentColor},
+                { color: contentColor },
                 titleStyle,
               ]}
               numberOfLines={1}>

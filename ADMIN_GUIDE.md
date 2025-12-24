@@ -43,6 +43,12 @@ You'll see the Admin Dashboard with options to manage:
 - **Speakers** - Define speakers to be used in exercises
   - Click 'speakers' to view and manage speakers
 
+<p align="center">
+  <img src="docs/screenshots/admin/Course-card-preview.png" alt="Course Card Preview" width="400" />
+  <br/>
+  <em>Course cards as seen in the admin panel</em>
+</p>
+
 ---
 
 ## Languages in Navaria
@@ -128,6 +134,12 @@ When you add an **Exercise** block:
 2. Add **Units** (Questions).
 3. **Click Save** on the unit and the exercise block to prevent data loss.
 
+<p align="center">
+  <img src="docs/screenshots/admin/add-various-exercise-types.png" alt="Exercise Types" width="400" />
+  <br/>
+  <em>Create various exercise types: typing, cloze, matching pairs, and more</em>
+</p>
+
 repeat this process for all the lessons you plan to teach.
 
 ---
@@ -138,15 +150,33 @@ Once your lessons are ready, you can create the course container and link them t
 
 ### Step 1: Create Course & Details
 
+<p align="center">
+  <img src="docs/screenshots/admin/Course-creation-screen.png" alt="Course Creation Screen" width="400" />
+  <br/>
+  <em>Course creation interface with customization options</em>
+</p>
+
 1. From the Admin Dashboard, select a language.
 2. Click **+ New Course**.
 3. Fill in the details (Title, Description, Icon, Colour).
 4. **Click Save**.
 5. **Click Preview** to see the course card.
 
+<p align="center">
+  <img src="docs/screenshots/admin/Course-preview.png" alt="Course Preview" width="500" />
+  <br/>
+  <em>Preview your course before publishing</em>
+</p>
+
 ### Step 2: Structure Course Content
 
 This is where you define the flow of your user's journey.
+
+<p align="center">
+  <img src="docs/screenshots/admin/Rich-content-blocks-nocode.png" alt="Rich Content Blocks" width="400" />
+  <br/>
+  <em>Build lessons with rich content blocks (no code required)</em>
+</p>
 
 1. In the Course Manager, click on your course, then **Edit Content**.
 2. Add **Content Blocks** to structure the flow:
@@ -156,6 +186,18 @@ This is where you define the flow of your user's journey.
    - **Lesson Block**: Add the next lesson.
      - - As you add lessons to a course, they are added in the order you add them, and you can select which other lessons are prerequisites for this lesson i.e. which lessons must be completed before this one unlocks.\*
 3. **Click Save** frequently to store your course structure.
+
+<p align="center">
+  <img src="docs/screenshots/admin/Add-lessons-to-course.png" alt="Add Lessons" width="400" />
+  <br/>
+  <em>Add lessons to your course in the desired order</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/admin/set-per-course-prerequisites.png" alt="Set Prerequisites" width="400" />
+  <br/>
+  <em>Set lesson prerequisites to control learning progression</em>
+</p>
 
 > [!TIP]
 > You can re-order blocks to change the flow.
@@ -167,6 +209,12 @@ This is where you define the flow of your user's journey.
 ## Managing Speakers
 
 Speakers add personality to conversational exercises. Each speaker has a profile picture or avatar.
+
+<p align="center">
+  <img src="docs/screenshots/admin/Manage-speakers.png" alt="Speaker Management" width="400" />
+  <br/>
+  <em>Manage speakers with custom avatars and profiles</em>
+</p>
 
 ### Step 1: Open Speaker Manager
 
@@ -213,12 +261,24 @@ Audio is crucial for pronunciation learning. Navaria supports audio at multiple 
 
 Navaria includes a built-in audio recorder:
 
+<p align="center">
+  <img src="docs/screenshots/admin/in-app-audio-recording.png" alt="In-App Audio Recording" width="400" />
+  <br/>
+  <em>Record audio directly in the app with speaker selection</em>
+</p>
+
 1. In the **Exercise Editor**, ensure you have defined **Speakers** first (see Managing Speakers).
 2. Select the Speaker you want to record as (tap their name/avatar).
 3. Tap the **Record Audio** button (microphone icon).
 4. Record the sentence or word.
 5. Tap **Use Recording** to save it to the unit.
 6. The audio is automatically uploaded and linked to the correct speaker.
+
+<p align="center">
+  <img src="docs/screenshots/admin/word-or-sentence-level-speaker-audio.png" alt="Audio Levels" width="400" />
+  <br/>
+  <em>Add audio at word or sentence level with speaker attribution</em>
+</p>
 
 #### Method 2: Direct Database Entry (Bulk Import)
 
