@@ -182,7 +182,7 @@ Support for special characters and diacritics with custom keyboard layouts (e.g.
   <tr>
     <td width="50%">
       <img src="docs/screenshots/admin/Add-lessons-to-course.png" alt="Add Lessons to Course" />
-      <p align="center"><em>Easily add and organise lessons</em></p>
+      <p align="center"><em>Easily add and organize lessons</em></p>
     </td>
     <td width="50%">
       <img src="docs/screenshots/admin/add-various-exercise-types.png" alt="Exercise Types" />
