@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useRef} from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -9,39 +9,39 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import {
   useTheme,
   AppLoadingSpinner,
   ConfettiSystem,
   Button,
 } from '@/components/shared';
-import {useUserStore} from '@/stores/userStore';
-import {useSettingsStore} from '@/stores/settingsStore';
-import {CompletionModal} from '@/components/lesson/CompletionModal';
-import {loadExercise} from '@/services/content';
-import {getLessonProgress} from '@/services/progress';
+import { useUserStore } from '@/stores/userStore';
+import { useSettingsStore } from '@/stores/settingsStore';
+import { CompletionModal } from '@/components/lesson/CompletionModal';
+import { loadExercise } from '@/services/content';
+import { getLessonProgress } from '@/services/progress';
 
-import {spacing, typography, borderRadius} from '@/theme';
-import {useThemedStyles} from '@/hooks/useThemedStyles';
-import {createCommonStyles} from '@/theme/commonStyles';
-import {ArrowRight} from 'lucide-react-native';
-import {supabase} from '@/services/supabase';
-import type {Exercise, LessonProgress} from '@/types';
-import {TranslationUnit, MatchingGroupUnit, ClozeUnit} from '@/types/content';
-import {FloatingXPItem} from '@/components/exercise/FloatingXPItem';
-import {useXPAnimation} from '@/hooks/useXPAnimation';
-import {useExerciseCompletion} from '@/hooks/useExerciseCompletion';
-import {SpeakerSelector} from '@/components/exercise/SpeakerSelector';
-import {MatchingPairsExercise} from '@/components/exercise/MatchingPairsExercise';
-import {ClozeExercise} from '@/components/exercise/ClozeExercise';
-import {StandardExercise} from '@/components/exercise/StandardExercise';
-import {useExerciseSession} from '@/hooks/useExerciseSession';
-import {ExerciseLayout} from '@/components/exercise/ExerciseLayout';
+import { spacing, typography, borderRadius } from '@/theme';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { createCommonStyles } from '@/theme/commonStyles';
+import { ArrowRight } from 'lucide-react-native';
+import { supabase } from '@/services/supabase';
+import type { Exercise, LessonProgress } from '@/types';
+import { TranslationUnit, MatchingGroupUnit, ClozeUnit } from '@/types/content';
+import { FloatingXPItem } from '@/components/exercise/FloatingXPItem';
+import { useXPAnimation } from '@/hooks/useXPAnimation';
+import { useExerciseCompletion } from '@/hooks/useExerciseCompletion';
+import { SpeakerSelector } from '@/components/exercise/SpeakerSelector';
+import { MatchingPairsExercise } from '@/components/exercise/MatchingPairsExercise';
+import { ClozeExercise } from '@/components/exercise/ClozeExercise';
+import { StandardExercise } from '@/components/exercise/StandardExercise';
+import { useExerciseSession } from '@/hooks/useExerciseSession';
+import { ExerciseLayout } from '@/components/exercise/ExerciseLayout';
 
 type LessonRouteProp = RouteProp<
-  {params: {lessonId: string; exerciseId: string; totalLessonUnits?: number}},
+  { params: { lessonId: string; exerciseId: string; totalLessonUnits?: number } },
   'params'
 >;
 
@@ -113,12 +113,12 @@ const createExerciseStyles = (themeColors: any) => {
 };
 
 export const ExerciseScreen: React.FC = () => {
-  const {colors} = useTheme();
+  const { colors, isDark } = useTheme();
   const common = createCommonStyles(colors);
   const navigation = useNavigation();
   const route = useRoute<LessonRouteProp>();
-  const {user, profile} = useUserStore();
-  const {animationsEnabled, autoProgress} = useSettingsStore();
+  const { user, profile } = useUserStore();
+  const { animationsEnabled, autoProgress } = useSettingsStore();
 
   const lessonId = route.params?.lessonId;
   const exerciseId = route.params?.exerciseId;
@@ -219,7 +219,7 @@ export const ExerciseScreen: React.FC = () => {
 
         if (allSpeakerIds.size > 0) {
           // Fetch speaker details from database
-          const {data: speakerData} = await supabase
+          const { data: speakerData } = await supabase
             .from('speakers')
             .select('*')
             .in('id', Array.from(allSpeakerIds));
@@ -281,7 +281,7 @@ export const ExerciseScreen: React.FC = () => {
   const hasAudio = currentUnitSpeakers.length > 0;
 
   // XP Animations
-  const {xpOpacity, xpScale, floatingXPs, setXpLayout, displayedXP} =
+  const { xpOpacity, xpScale, floatingXPs, setXpLayout, displayedXP } =
     useXPAnimation(
       sessionXPEarned,
       lastWordStats.hasMistakes,
@@ -337,7 +337,7 @@ export const ExerciseScreen: React.FC = () => {
   const handleXPLayout = useCallback(() => {
     xpCounterRef.current?.measureInWindow((x, y, width, height) => {
       if (width > 0 && x >= 0 && y >= 0) {
-        setXpLayout({x, y, width, height});
+        setXpLayout({ x, y, width, height });
       }
     });
   }, [setXpLayout]);
@@ -352,7 +352,7 @@ export const ExerciseScreen: React.FC = () => {
   const addXP = (
     amount: number,
     wordIndex?: number,
-    stats?: {hasMistakes: boolean; helpUsed: boolean},
+    stats?: { hasMistakes: boolean; helpUsed: boolean },
   ) => {
     if (stats) {
       setLastWordStats(stats);
@@ -425,7 +425,7 @@ export const ExerciseScreen: React.FC = () => {
                 style={[
                   common.row,
                   styles.xpContainerExtra,
-                  {transform: [{scale: xpScale}], opacity: xpOpacity},
+                  { transform: [{ scale: xpScale }], opacity: xpOpacity },
                 ]}
                 onLayout={handleXPLayout}>
                 <Text style={styles.xpText}>+{displayedXP} XP</Text>

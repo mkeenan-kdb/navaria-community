@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   ActivityIndicator,
   View,
@@ -6,16 +6,17 @@ import {
   Text,
   Platform,
 } from 'react-native';
-import {StatusBar} from 'expo-status-bar';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {useFonts} from 'expo-font';
+
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useFonts } from 'expo-font';
 import {
   ThemeProvider,
   ErrorBoundary,
   GlobalAchievementNotification,
+  ThemedStatusBar,
 } from '@/components/shared';
-import {RootNavigator} from '@/navigation/RootNavigator';
-import {initializeAudio, cleanupAudio} from '@/services/audio';
+import { RootNavigator } from '@/navigation/RootNavigator';
+import { initializeAudio, cleanupAudio } from '@/services/audio';
 
 export default function App() {
   const [appReady, setAppReady] = React.useState(false);
@@ -89,7 +90,7 @@ export default function App() {
         <ThemeProvider>
           <RootNavigator />
           <GlobalAchievementNotification />
-          <StatusBar style="auto" />
+          <ThemedStatusBar />
         </ThemeProvider>
       </ErrorBoundary>
     </GestureHandlerRootView>
