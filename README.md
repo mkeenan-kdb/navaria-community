@@ -81,7 +81,7 @@ Thousands of languages around the world are at risk of disappearing. Navaria pro
 
 ## 🌐 Community Version
 
-You can access the live community version here: [Navaria Community App](https://navaria-webdeploy.navaria.pages.dev/app/)
+You can access the live community version here: [Navaria Community App](https://navaria-community.navaria.pages.dev/)
 
 This instance is running for the community. It's currently empty, waiting for **you** to create content. If you would like to create content for the community version, you can contact me and I'll help you get started with admin access.
 
